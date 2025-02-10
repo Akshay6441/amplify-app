@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AWS Amplify App</title>
+</head>
+<body>
+    <h1>Welcome to My Amplify App</h1>
+    <form id="userForm">
+        <input type="text" id="name" placeholder="Enter Name" required>
+        <input type="email" id="email" placeholder="Enter Email" required>
+        <button type="submit">Submit</button>
+    </form>
+    <script>
+        document.getElementById("userForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            fetch("https://your-api-id.execute-api.region.amazonaws.com/dev/submit", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name: document.getElementById("name").value, email: document.getElementById("email").value })
+            }).then(response => response.json())
+              .then(data => alert("Data submitted: " + JSON.stringify(data)))
+              .catch(error => console.error("Error:", error));
+        });
+    </script>
+</body>
+</html>
